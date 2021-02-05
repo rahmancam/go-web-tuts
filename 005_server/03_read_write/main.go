@@ -1,0 +1,43 @@
+package main
+
+import (
+	"bufio"
+	"fmt"
+	"log"
+	"net"
+	"time"
+)
+
+/*
+* telnet localhost 8080
+ */
+func main() {
+	listener, err := net.Listen("tcp", ":8080")
+	if err != nil {
+		log.Panicln(err)
+	}
+	defer listener.Close()
+
+	for {
+		conn, err := listener.Accept()
+		if err != nil {
+			log.Println(err)
+		}
+		go handle(conn)
+	}
+}
+
+func handle(conn net.Conn) {
+	if err := conn.SetDeadline(time.Now().Add(10 * time.Second)); err != nil {
+		log.Println("CONN TIMEOUT")
+	}
+	scanner := bufio.NewScanner(conn)
+	for scanner.Scan() {
+		ln := scanner.Text()
+		fmt.Println(ln)
+		fmt.Fprintf(conn, "I heard you say: %s\n", ln)
+	}
+	defer conn.Close()
+	//the connection will time out
+	fmt.Println("**Code got here..**")
+}
