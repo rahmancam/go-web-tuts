@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello Go!</title>
+</head>
+
+<body>
+    {{if .}}
+    <div>
+        {{range $key, $value := .}}
+        <strong>{{$key}}</strong>
+        <ul>
+        {{range $value}}
+            <li>{{.}}</li>
+        {{end}}
+        </ul>
+        {{end}}
+    </div>
+    {{end}}
+    <form action="/" method="POST">
+        <div>
+            <input type="text" name="first_name" id="fname" placeholder="Enter your name" />
+        </div>
+        <div>
+            <input type="submit" name="submitBtn" value="Submit">
+        </div>
+    </form>
+</body>
+
+</html>
