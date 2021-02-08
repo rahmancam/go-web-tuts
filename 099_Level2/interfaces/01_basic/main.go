@@ -26,12 +26,15 @@ func (c Cat) speak() {
 }
 
 func talk(a Animal) {
+	fmt.Printf("%T\n", a)
 	a.speak()
 }
 
 func main() {
 	dog := Dog{Name: "Woofie"}
+	fmt.Printf("%T\n", dog)
 	cat := Cat{Name: "Jessy"}
+	fmt.Printf("%T\n", cat)
 	talk(dog)
 	talk(cat)
 }
